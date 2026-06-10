@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizzeria Ristorante Napoli — Groningen</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --black:#080808;
+  --dark:#0f0f0f;
+  --dark2:#161616;
+  --red:#c5432a;
+  --red2:#e05a3a;
+  --cream:#f5ede0;
+  --cream2:#ede0cc;
+  --gold:#c9a84c;
+  --white:#ffffff;
+  --gray:#888;
+  --border:rgba(255,255,255,0.08);
+}
+body{font-family:'Outfit',sans-serif;background:var(--dark);color:var(--cream);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;transition:all .4s;background:transparent}
+nav.scrolled{background:rgba(8,8,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);font-weight:400;letter-spacing:.02em;text-decoration:none}
+.nav-logo span{color:var(--red2);font-style:italic}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{color:rgba(245,237,224,.65);text-decoration:none;font-size:13px;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--cream)}
+.nav-cta{background:var(--red);color:var(--white);padding:10px 24px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .2s}
+.nav-cta:hover{background:var(--red2)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger span{width:24px;height:1.5px;background:var(--cream);transition:all .3s}
+
+/* HERO */
+.hero{height:100vh;min-height:700px;position:relative;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1800&q=90&auto=format&fit=crop') center/cover no-repeat}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,8,8,.92) 45%,rgba(8,8,8,.5) 100%)}
+.hero-overlay2{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.8) 0%,transparent 50%)}
+.hero-content{position:relative;z-index:2;padding:0 48px;max-width:1280px;margin:0 auto;width:100%}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.hero-eyebrow::before{content:'';width:48px;height:1px;background:var(--red)}
+.hero-eyebrow span{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--red2)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(52px,7vw,96px);font-weight:400;color:var(--white);line-height:1.0;margin-bottom:8px}
+.hero h1 i{font-style:italic;color:var(--cream2)}
+.hero h1 .accent{color:var(--red2)}
+.hero-sub{font-size:17px;color:rgba(245,237,224,.6);max-width:480px;line-height:1.8;margin-bottom:48px;font-weight:300;margin-top:20px}
+.hero-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.btn-red{background:var(--red);color:#fff;padding:16px 36px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;display:inline-block;transition:background .2s}
+.btn-red:hover{background:var(--red2)}
+.btn-ghost{color:var(--cream);font-size:13px;text-decoration:none;display:flex;align-items:center;gap:10px;letter-spacing:.04em;border-bottom:1px solid rgba(245,237,224,.25);padding-bottom:2px;transition:border-color .2s}
+.btn-ghost:hover{border-color:var(--red)}
+.hero-info{position:absolute;right:48px;bottom:80px;z-index:3;display:flex;flex-direction:column;gap:4px;text-align:right}
+.hero-info-item{font-size:12px;color:rgba(245,237,224,.5);letter-spacing:.06em}
+.hero-info-item strong{color:var(--cream);display:block;font-size:14px;font-weight:500}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero-scroll span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,237,224,.4)}
+.hero-scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,rgba(197,67,42,.8),transparent);animation:scrollline 2s ease-in-out infinite}
+@keyframes scrollline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* TICKER */
+.ticker{background:var(--red);padding:12px 0;overflow:hidden}
+.ticker-track{display:flex;gap:48px;animation:ticker 20s linear infinite;width:max-content}
+.ticker-track span{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.9);white-space:nowrap}
+.ticker-sep{color:rgba(255,255,255,.4)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;min-height:80vh}
+.about-img{position:relative;overflow:hidden}
+.about-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.about-img:hover img{transform:scale(1.04)}
+.about-img-badge{position:absolute;bottom:32px;right:32px;background:var(--red);padding:20px 24px;text-align:center}
+.about-img-badge-num{font-family:'Playfair Display',serif;font-size:40px;color:#fff;line-height:1;font-weight:700;display:block}
+.about-img-badge-text{font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;display:block}
+.about-content{background:var(--dark2);padding:80px 72px;display:flex;flex-direction:column;justify-content:center}
+.section-tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--red2);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.section-tag::before{content:'';width:32px;height:1px;background:var(--red)}
+.about h2{font-family:'Playfair Display',serif;font-size:42px;font-weight:400;color:var(--cream);line-height:1.2;margin-bottom:24px}
+.about h2 i{font-style:italic}
+.about p{font-size:15px;line-height:1.9;color:rgba(245,237,224,.6);font-weight:300;margin-bottom:16px}
+.about-features{display:flex;flex-direction:column;gap:12px;margin-top:32px}
+.feature-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.feature-item:last-child{border-bottom:none}
+.feature-dot{width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0}
+.feature-text{font-size:14px;color:var(--cream)}
+
+/* MENU */
+.menu-section{padding:112px 48px;background:var(--black)}
+.menu-inner{max-width:1280px;margin:0 auto}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:64px}
+.section-header h2{font-family:'Playfair Display',serif;font-size:52px;font-weight:400;color:var(--cream);line-height:1.1}
+.section-header h2 i{font-style:italic;color:var(--red2)}
+.menu-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:48px}
+.menu-tab{padding:12px 28px;font-size:13px;font-weight:500;color:rgba(245,237,224,.45);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;letter-spacing:.04em}
+.menu-tab.active{color:var(--cream);border-bottom-color:var(--red)}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)}
+.menu-item{background:var(--dark2);padding:28px 32px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;transition:background .2s}
+.menu-item:hover{background:#1e1e1e}
+.menu-item-info h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:500;color:var(--cream);margin-bottom:6px}
+.menu-item-info p{font-size:13px;color:rgba(245,237,224,.5);line-height:1.6;font-weight:300;max-width:280px}
+.menu-item-price{font-family:'Playfair Display',serif;font-size:20px;color:var(--red2);font-weight:600;white-space:nowrap;flex-shrink:0}
+.menu-item-badge{display:inline-block;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;margin-bottom:6px}
+
+/* GALLERY */
+.gallery{padding:0}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:300px 300px}
+.gallery-item{overflow:hidden;position:relative;cursor:pointer}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .4s}
+.gallery-item:hover img{transform:scale(1.08);filter:brightness(.7)}
+.gallery-item.large{grid-column:span 2;grid-row:span 2}
+.gallery-overlay{position:absolute;inset:0;background:rgba(8,8,8,.4);opacity:0;transition:opacity .3s;display:flex;align-items:center;justify-content:center}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-overlay span{font-size:30px}
+
+/* RESERVATION */
+.reservation{background:var(--dark2);padding:112px 48px}
+.res-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
+.res-left h2{font-family:'Playfair Display',serif;font-size:48px;font-weight:400;color:var(--cream);line-height:1.15;margin-bottom:24px}
+.res-left h2 i{font-style:italic;color:var(--red2)}
+.res-left p{font-size:15px;color:rgba(245,237,224,.55);line-height:1.9;font-weight:300;margin-bottom:36px}
+.res-details{display:flex;flex-direction:column;gap:0}
+.res-detail{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+.res-detail:first-child{border-top:1px solid var(--border)}
+.res-detail-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.res-detail-info strong{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red2);margin-bottom:4px;font-weight:500}
+.res-detail-info span{font-size:14px;color:var(--cream)}
+.res-detail-info small{font-size:12px;color:rgba(245,237,224,.45);display:block;margin-top:2px}
+.res-form{display:flex;flex-direction:column;gap:16px}
+.form-field label{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,224,.45);margin-bottom:7px;font-weight:500}
+.form-field input,.form-field select,.form-field textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--cream);padding:13px 16px;font-size:14px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s;border-radius:0;-webkit-appearance:none}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--red)}
+.form-field select option{background:var(--dark2);color:var(--cream)}
+.form-field textarea{height:100px;resize:none}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-submit{background:var(--red);color:#fff;border:none;padding:16px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:'Outfit',sans-serif;width:100%;transition:background .2s;margin-top:4px}
+.form-submit:hover{background:var(--red2)}
+.wa-reserve{display:flex;align-items:center;justify-content:center;gap:10px;background:#25d366;color:#fff;padding:14px;border-radius:2px;text-decoration:none;font-size:14px;font-weight:600;margin-top:8px;transition:background .2s}
+.wa-reserve:hover{background:#1da851}
+
+/* QUOTE */
+.quote-section{position:relative;padding:120px 48px;overflow:hidden}
+.quote-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1800&q=85&auto=format&fit=crop') center/cover no-repeat}
+.quote-overlay{position:absolute;inset:0;background:rgba(8,8,8,.88)}
+.quote-content{position:relative;z-index:2;max-width:800px;margin:0 auto;text-align:center}
+.quote-mark{font-family:'Playfair Display',serif;font-size:120px;color:rgba(197,67,42,.15);line-height:.4;display:block;margin-bottom:12px}
+.quote-text{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,36px);font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:24px}
+.quote-author{font-size:12px;letter-spacing:.18em;color:var(--red2);text-transform:uppercase}
+
+/* FOOTER */
+footer{background:var(--black);padding:72px 48px 36px;border-top:1px solid var(--border)}
+.footer-inner{max-width:1280px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.footer-brand .logo{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream);margin-bottom:16px;display:block}
+.footer-brand .logo span{color:var(--red2);font-style:italic}
+.footer-brand p{font-size:13px;color:rgba(245,237,224,.4);line-height:1.8;font-weight:300;max-width:260px}
+.footer-socials{display:flex;gap:10px;margin-top:20px}
+.social-link{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:rgba(245,237,224,.45);text-decoration:none;font-size:13px;font-weight:600;transition:all .2s}
+.social-link:hover{border-color:var(--red);color:var(--red2)}
+.footer-col h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red2);margin-bottom:20px;font-weight:500}
+.footer-col a{display:block;font-size:13px;color:rgba(245,237,224,.4);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.footer-col a:hover{color:var(--cream)}
+.footer-col p{font-size:13px;color:rgba(245,237,224,.4);line-height:1.8;margin-bottom:8px}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom small{font-size:12px;color:rgba(245,237,224,.25)}
+
+/* FADE ANIMATION */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .8s,transform .8s}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-content{padding:0 24px}
+  .hero-info{display:none}
+  .hero h1{font-size:clamp(44px,10vw,72px)}
+  .about{grid-template-columns:1fr}
+  .about-img{height:360px}
+  .about-content{padding:56px 32px}
+  .menu-section{padding:72px 24px}
+  .menu-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gallery-item.large{grid-column:span 2}
+  .reservation{padding:72px 24px}
+  .res-inner{grid-template-columns:1fr;gap:48px}
+  .quote-section{padding:80px 24px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-top > div:first-child{grid-column:span 2}
+}
+@media(max-width:480px){
+  .hero-actions{flex-direction:column;align-items:flex-start}
+  .btn-red{width:100%;text-align:center;padding:16px}
+  .menu-tabs{overflow-x:auto}
+  .form-row{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .footer-top > div:first-child{grid-column:span 1}
+  .gallery-grid{grid-template-columns:1fr}
+  .gallery-item.large{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Napoli <span>Ristorante</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Over Ons</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#galerij">Galerij</a></li>
+    <li><a href="#reserveren">Contact</a></li>
+  </ul>
+  <a href="#reserveren" class="nav-cta">Reserveer Nu</a>
+  <div class="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up">
+      <span>Astraat 9 · Groningen · Sinds 1990</span>
+    </div>
+    <h1 class="fade-up">La <i>vera</i><br>cucina <span class="accent">italiana</span></h1>
+    <p class="hero-sub fade-up">Authentieke Italiaanse pizza's, pasta's en lasagna's — bereid met liefde en de beste ingrediënten. Welkom bij het hart van Groningen.</p>
+    <div class="hero-actions fade-up">
+      <a href="#reserveren" class="btn-red">Tafel Reserveren</a>
+      <a href="#menu" class="btn-ghost">Bekijk het menu →</a>
+    </div>
+  </div>
+  <div class="hero-info fade-up">
+    <div class="hero-info-item">
+      <strong>13:30 – 22:00</strong>
+      Dagelijks geopend
+    </div>
+    <div class="hero-info-item" style="margin-top:16px">
+      <strong>050 314 4991</strong>
+      Reserveer telefonisch
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>Pizza Napoletana</span><span class="ticker-sep">·</span>
+    <span>Pasta Artigianale</span><span class="ticker-sep">·</span>
+    <span>Lasagna al Forno</span><span class="ticker-sep">·</span>
+    <span>Vino Italiano</span><span class="ticker-sep">·</span>
+    <span>Risotto Cremoso</span><span class="ticker-sep">·</span>
+    <span>Antipasti</span><span class="ticker-sep">·</span>
+    <span>Tiramisu</span><span class="ticker-sep">·</span>
+    <span>Pizza Napoletana</span><span class="ticker-sep">·</span>
+    <span>Pasta Artigianale</span><span class="ticker-sep">·</span>
+    <span>Lasagna al Forno</span><span class="ticker-sep">·</span>
+    <span>Vino Italiano</span><span class="ticker-sep">·</span>
+    <span>Risotto Cremoso</span><span class="ticker-sep">·</span>
+    <span>Antipasti</span><span class="ticker-sep">·</span>
+    <span>Tiramisu</span><span class="ticker-sep">·</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-img fade-up">
+    <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?w=900&q=90&auto=format&fit=crop" alt="Pizza Napoli">
+    <div class="about-img-badge">
+      <span class="about-img-badge-num">30+</span>
+      <span class="about-img-badge-text">Jaar<br>Traditie</span>
+    </div>
+  </div>
+  <div class="about-content fade-up">
+    <p class="section-tag">Over ons</p>
+    <h2>Groningen's <i>meest geliefde</i> Italiaan</h2>
+    <p>Pizzeria Ristorante Napoli is al meer dan 30 jaar een vaste waarde in het hart van Groningen. Gelegen aan de Astraat, verwelkomen wij studenten, gezinnen en iedereen met liefde voor authentieke Italiaanse keuken.</p>
+    <p>Van onze knapperige pizza's tot verse pasta's en huisgemaakte lasagna — elk gerecht wordt bereid met de beste ingrediënten en recepten rechtstreeks uit Napels.</p>
+    <div class="about-features">
+      <div class="feature-item">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Verse pizza's en pasta's — dagelijks bereid</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Vegetarische en vleesgerechten</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Ruimte voor groepen en speciale gelegenheden</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-dot"></div>
+        <span class="feature-text">Toegankelijk voor mensen met mobiliteitsproblemen</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="menu-inner">
+    <div class="section-header fade-up">
+      <h2>Onze <i>Specialiteiten</i></h2>
+      <a href="#reserveren" style="font-size:13px;color:rgba(245,237,224,.5);text-decoration:none;border-bottom:1px solid rgba(245,237,224,.2);padding-bottom:2px">Volledig menu op aanvraag →</a>
+    </div>
+    <div class="menu-tabs" id="menu-tabs">
+      <div class="menu-tab active" onclick="switchMenu('pizza',this)">Pizza's</div>
+      <div class="menu-tab" onclick="switchMenu('pasta',this)">Pasta & Lasagna</div>
+      <div class="menu-tab" onclick="switchMenu('antipasti',this)">Antipasti</div>
+    </div>
+    <div class="menu-grid" id="menu-grid-pizza">
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <div class="menu-item-badge">Favoriet</div>
+          <h4>Margherita</h4>
+          <p>Tomatensaus, mozzarella fior di latte, basilicum</p>
+        </div>
+        <div class="menu-item-price">€ 11,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Diavola</h4>
+          <p>Tomatensaus, mozzarella, pikante salami, olijven</p>
+        </div>
+        <div class="menu-item-price">€ 14,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <div class="menu-item-badge">Chef's keuze</div>
+          <h4>Quattro Stagioni</h4>
+          <p>Ham, champignons, artisjok, olijven, mozzarella</p>
+        </div>
+        <div class="menu-item-price">€ 15,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Napoli</h4>
+          <p>Tomatensaus, mozzarella, ansjovis, kappertjes, oregano</p>
+        </div>
+        <div class="menu-item-price">€ 13,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Prosciutto e Funghi</h4>
+          <p>Ham, champignons, mozzarella, tomatensaus</p>
+        </div>
+        <div class="menu-item-price">€ 14,00</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Quattro Formaggi</h4>
+          <p>Vier kazen: mozzarella, gorgonzola, parmezaan, pecorino</p>
+        </div>
+        <div class="menu-item-price">€ 15,00</div>
+      </div>
+    </div>
+    <div class="menu-grid" id="menu-grid-pasta" style="display:none">
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <div class="menu-item-badge">Huisgemaakt</div>
+          <h4>Lasagna al Forno</h4>
+          <p>Huisgemaakte lasagna met ragù bolognese en bechamelsaus</p>
+        </div>
+        <div class="menu-item-price">€ 14,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Spaghetti Carbonara</h4>
+          <p>Pancetta, ei, parmezaan, zwarte peper</p>
+        </div>
+        <div class="menu-item-price">€ 13,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Penne Arrabbiata</h4>
+          <p>Pikante tomatensaus, knoflook, basilicum</p>
+        </div>
+        <div class="menu-item-price">€ 12,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <div class="menu-item-badge">Vegetarisch</div>
+          <h4>Lasagna Vegetariana</h4>
+          <p>Seizoensgroenten, ricotta, tomatensaus, mozzarella</p>
+        </div>
+        <div class="menu-item-price">€ 13,50</div>
+      </div>
+    </div>
+    <div class="menu-grid" id="menu-grid-antipasti" style="display:none">
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Bruschetta al Pomodoro</h4>
+          <p>Geroosterd brood, tomaat, basilicum, knoflook, olijfolie</p>
+        </div>
+        <div class="menu-item-price">€ 7,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Carpaccio di Manzo</h4>
+          <p>Rauwe ossenhaas, rucola, parmezaan, citroen</p>
+        </div>
+        <div class="menu-item-price">€ 12,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <div class="menu-item-badge">Populair</div>
+          <h4>Antipasto Misto</h4>
+          <p>Vleeswaren, kazen, gegrilde groenten, olijven</p>
+        </div>
+        <div class="menu-item-price">€ 14,50</div>
+      </div>
+      <div class="menu-item fade-up">
+        <div class="menu-item-info">
+          <h4>Insalata Caprese</h4>
+          <p>Tomaat, mozzarella, basilicum, olijfolie, peper</p>
+        </div>
+        <div class="menu-item-price">€ 10,50</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galerij">
+  <div class="gallery-grid">
+    <div class="gallery-item large fade-up">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=900&q=90&auto=format&fit=crop" alt="Pizza">
+      <div class="gallery-overlay"><span>🍕</span></div>
+    </div>
+    <div class="gallery-item fade-up">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=90&auto=format&fit=crop" alt="Restaurant">
+      <div class="gallery-overlay"><span>🍷</span></div>
+    </div>
+    <div class="gallery-item fade-up">
+      <img src="https://images.unsplash.com/photo-1473093226555-0b9d61fcf0d7?w=600&q=90&auto=format&fit=crop" alt="Pasta">
+      <div class="gallery-overlay"><span>🍝</span></div>
+    </div>
+    <div class="gallery-item fade-up">
+      <img src="https://images.unsplash.com/photo-1587740908075-9e245070dfaa?w=600&q=90&auto=format&fit=crop" alt="Lasagna">
+      <div class="gallery-overlay"><span>🫕</span></div>
+    </div>
+    <div class="gallery-item fade-up">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=90&auto=format&fit=crop" alt="Sfeer">
+      <div class="gallery-overlay"><span>✨</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <div class="quote-bg"></div>
+  <div class="quote-overlay"></div>
+  <div class="quote-content fade-up">
+    <span class="quote-mark">"</span>
+    <p class="quote-text">La pizza è un piatto semplice che richiede una grande passione.</p>
+    <p class="quote-author">— De keuken van Napoli, Groningen</p>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reserveren">
+  <div class="res-inner">
+    <div class="fade-up">
+      <p class="section-tag">Reserveren</p>
+      <h2>Kom <i>genieten</i><br>bij Napoli</h2>
+      <p>Reserveer uw tafel online of bel ons direct. Wij verwelkomen u graag voor een onvergetelijke Italiaanse avond.</p>
+      <div class="res-details">
+        <div class="res-detail">
+          <div class="res-detail-icon">📍</div>
+          <div class="res-detail-info">
+            <strong>Adres</strong>
+            <span>Astraat 9, 9718 CP Groningen</span>
+          </div>
+        </div>
+        <div class="res-detail">
+          <div class="res-detail-icon">🕐</div>
+          <div class="res-detail-info">
+            <strong>Openingstijden</strong>
+            <span>Dagelijks geopend</span>
+            <small>13:30–16:00 en 16:30–22:00</small>
+          </div>
+        </div>
+        <div class="res-detail">
+          <div class="res-detail-icon">📞</div>
+          <div class="res-detail-info">
+            <strong>Telefoon</strong>
+            <span>050 314 4991</span>
+          </div>
+        </div>
+        <div class="res-detail">
+          <div class="res-detail-icon">📸</div>
+          <div class="res-detail-info">
+            <strong>Volg ons</strong>
+            <span>@napolipizzeriaristorante</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fade-up">
+      <p style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red2);margin-bottom:24px">Online Reserveren</p>
+      <div class="res-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Naam</label>
+            <input type="text" placeholder="Uw naam">
+          </div>
+          <div class="form-field">
+            <label>Telefoon</label>
+            <input type="tel" placeholder="+31 6 00 000 000">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Datum</label>
+            <input type="date">
+          </div>
+          <div class="form-field">
+            <label>Tijd</label>
+            <select>
+              <option>13:30</option>
+              <option>14:00</option>
+              <option>16:30</option>
+              <option>17:00</option>
+              <option>17:30</option>
+              <option>18:00</option>
+              <option>18:30</option>
+              <option>19:00</option>
+              <option>19:30</option>
+              <option>20:00</option>
+              <option>20:30</option>
+              <option>21:00</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Aantal personen</label>
+          <select>
+            <option>1 persoon</option>
+            <option>2 personen</option>
+            <option>3 personen</option>
+            <option>4 personen</option>
+            <option>5 personen</option>
+            <option>6 personen</option>
+            <option>7+ personen (groep)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Bijzonderheden (optioneel)</label>
+          <textarea placeholder="Allergieën, speciale gelegenheid..."></textarea>
+        </div>
+        <button class="form-submit" onclick="this.textContent='✅ Aanvraag verzonden!';this.style.background='#2d7a45';setTimeout(()=>{this.textContent='Reserveer Nu';this.style.background=''},3000)">Reserveer Nu →</button>
+        <a href="https://wa.me/31503144991?text=Hallo! Ik wil graag een tafel reserveren bij Pizzeria Napoli." class="wa-reserve" target="_blank">
+          <span>💬</span> Reserveer via WhatsApp
+        </a>
+        <p style="font-size:11px;color:rgba(245,237,224,.3);text-align:center;margin-top:8px">U ontvangt een bevestiging binnen 30 minuten</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo">Napoli <span>Ristorante</span></span>
+        <p>Authentieke Italiaanse keuken in het hart van Groningen. Welkom bij ons — benvenuti!</p>
+        <div class="footer-socials">
+          <a href="https://www.instagram.com/napolipizzeriaristorante/" class="social-link" target="_blank">ig</a>
+          <a href="https://www.facebook.com/NapoliGroningen/" class="social-link" target="_blank">fb</a>
+          <a href="tel:0503144991" class="social-link">☎</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Menu</h4>
+        <a href="#menu">Pizza's</a>
+        <a href="#menu">Pasta</a>
+        <a href="#menu">Lasagna</a>
+        <a href="#menu">Antipasti</a>
+        <a href="#menu">Desserts</a>
+      </div>
+      <div class="footer-col">
+        <h4>Restaurant</h4>
+        <a href="#about">Over ons</a>
+        <a href="#galerij">Galerij</a>
+        <a href="#reserveren">Reserveren</a>
+        <a href="#reserveren">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>Astraat 9<br>9718 CP Groningen</p>
+        <p>050 314 4991</p>
+        <p>Ma–Zo: 13:30–22:00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2026 Pizzeria Ristorante Napoli Groningen — Alle rechten voorbehouden</small>
+      <small style="color:rgba(245,237,224,.15)">Demo website door Segmavoice</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60));
+
+// Fade animations
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);obs.unobserve(e.target);}});
+},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// Menu tabs
+function switchMenu(type,btn){
+  ['pizza','pasta','antipasti'].forEach(t=>{
+    document.getElementById('menu-grid-'+t).style.display=t===type?'grid':'none';
+  });
+  document.querySelectorAll('.menu-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Mobile nav
+function toggleNav(){
+  const links=document.querySelector('.nav-links');
+  links.style.display=links.style.display==='flex'?'none':'flex';
+  links.style.flexDirection='column';
+  links.style.position='absolute';
+  links.style.top='72px';
+  links.style.left='0';
+  links.style.right='0';
+  links.style.background='rgba(8,8,8,.98)';
+  links.style.padding='24px 32px';
+  links.style.gap='20px';
+}
+</script>
+</body>
+</html>
